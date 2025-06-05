@@ -4,7 +4,7 @@ from .main import register as main_register, unregister as main_unregister
 bl_info = {
     "name": "Material Texture Applier",
     "author": "yuandere",
-    "version": (1, 0),
+    "version": (1, 1, 0),
     "blender": (2, 80, 0),
     "location": "3D Viewport > Sidebar > Material Textures",
     "description": "Apply textures from JSON files to selected object materials",
