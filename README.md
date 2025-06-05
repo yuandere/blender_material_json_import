@@ -6,15 +6,16 @@
 
 ## Overview
 
-This is a Blender add-on created to help the process of applying textures specified in Unreal Engine material JSON files to imported objects. Given a directory, it will look for JSON files with names matching the object's materials and that contain texture paths. Then the add-on will apply textures found in the same directory as the JSON to any matched materials.
+This is a Blender add-on created to help the process of applying textures specified in Unreal Engine material JSON files to imported objects. Given a directory, it will search for JSON files with names matching the object's materials and that contain texture paths. Then the add-on will apply any textures found to matched materials.
 
 **The JSON does not need to originate from UE or a tool like FModel- textures will be applied as long as the JSON name matches the material and any texture files are correctly defined and in the same folder.**
 
 ## Features
 
-- **Material Files Scan:** Looks for JSON files and colocated textures in a specified directory and its subdirectories. Recognized texture types: `jpg, jpeg, png, tga, bmp, tiff, exr, dds.`
-- **Applied Texture Maps:** Extracts texture paths and applies the texture to matched materials, **currently supporting diffuse and normal maps only.**
+- **Material Files Scan:** Looks for JSON files and textures in a specified directory and its subdirectories. Recognized texture types: `jpg, jpeg, png, tga, bmp, tiff, exr, dds.`
+- **Applied Texture Maps:** Extracts texture paths and applies the texture to matched materials, **currently supporting diffuse, normal, and alpha maps only.**
 - **Convenient UI:** Provides a side panel in Blender's 3D view to access add-on functionality.
+- **JSON Key Picker:** Allows adding and selecting JSON keys to use for matching materials and textures.
 - **Verbose Logging:** Outputs to Blender's system console for diagnosing import issues.
 
 ## Example
@@ -38,10 +39,10 @@ ChairModel/
 
 ```json
 {
-	"Textures": {
-		"PM_Diffuse": ".../T_ChairBase_D.T_Chairbase_D",
-		"PM_Normals": "T_ChairBase_N"
-	}
+  "Textures": {
+    "PM_Diffuse": ".../T_ChairBase_D.T_Chairbase_D",
+    "PM_Normals": "T_ChairBase_N"
+  }
 }
 ```
 
@@ -53,14 +54,18 @@ ChairModel/
 
 ## Usage
 
-1. Ensure any material JSONs are correctly formatted and associated textures are in the same folder
+1. Ensure material JSONs are correctly formatted and associated textures are located within the JSON root directory
 2. Open the Blender side panel interface and select an object
 3. Paste in a path or use the file browser to select your JSON root directory
-4. Click Apply Textures
+4. Configure texture slots and options
+   - If your texture contains a packed alpha map (e.g. `T_ChairBase_D.png`), check the `Use Alpha` option
+   <!-- - If your normal map is inverted (e.g. `T_ChairBase_N.png`), check the `Invert` option -->
+   - If the JSON key is different from the default (e.g. `"MainTex"` instead of `"PM_Diffuse"`), add/rename it to the JSON Keys list and ensure it is active
+5. Click `Apply Textures`
 
 ## Planned Improvements
 
-- Support for alpha maps and common channel packed textures
+- Support for common channel packed textures
 
 ## Contributing
 
